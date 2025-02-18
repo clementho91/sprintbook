@@ -33,6 +33,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer FindById(UUID id) {
+        CustomerModel customerEntity = customerRepository.findById(id).get();
+        if(customerEntity != null){
+            return this.customerMapper.map(customerEntity);
+        }
         return null;
     }
 
@@ -46,6 +50,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void Delete(UUID id) {
-
+        CustomerModel customerEntity = customerRepository.findById(id).get();
+        if(customerEntity != null){
+            customerRepository.delete( customerEntity );
+        }
     }
 }

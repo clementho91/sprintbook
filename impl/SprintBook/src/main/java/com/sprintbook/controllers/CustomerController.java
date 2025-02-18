@@ -3,6 +3,7 @@ package com.sprintbook.controllers;
 import com.sprintbook.dto.Customer;
 import com.sprintbook.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,15 +32,22 @@ public class CustomerController {
 
     @GetMapping("{id}")
     public ResponseEntity<Customer> findById(@PathVariable("id") UUID id){
-
-        return null;
+        Customer customer = customerService.FindById(id);
+        if(customer == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(customer);
     }
 
 
     @DeleteMapping("{id}")
     public ResponseEntity delete(@PathVariable("id") UUID id){
-
-        return null;
+        Customer customer = customerService.FindById(id);
+        if(customer == null){
+            return ResponseEntity.notFound().build();
+        }
+        customerService.Delete(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }
