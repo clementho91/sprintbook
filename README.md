@@ -1,6 +1,6 @@
 ## SprintBook Layered Approach
 
-Spring Boot API project is divided into multiple layers keeping seperation of concern. Each layer has its own responsibility to deal with. Controler-> Service-> Repository -> Entities (Models).
+Spring Boot API project is divided into multiple layers keeping seperation of concern. Each layer has its own responsibility to deal with. Controler-> Service-> Repository -> Entities (Models). H2 database is used for this implementation.
 Introduced DTO that will be mapped by the service on relevant entities/models object to have loose coupling. Code is in impl/SprintBook folder. Project is setup using maven. I covered Dockerization, Jenkins Pipeline and deployment to Kubernetes using helm chart.
 
 ```sh
