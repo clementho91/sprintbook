@@ -1,0 +1,45 @@
+#!groovy
+
+pipeline {
+  agent {
+    label 'sprintbook-OnBuild'
+  }
+  options { timestamps () }
+  stages {
+    stage('Clone') {
+      steps {
+        checkout scm
+      }
+    }
+    stage('Setup Credentials') {
+        steps {
+          
+        }
+    }
+    stage('SprintBook') {
+      stages{
+        stage('Build') {
+          steps {
+            script {
+              sprintBookImage =  docker.build("${DOCKERHUB_IMAGE}/sprintbook:${IMAGE_TAG}", '-f docker.d/sprintbook.Dockerfile ./')
+            }
+          }
+        }
+        stage('Publish') {
+          steps {
+            script {
+              docker.withRegistry( DOCKERHUB_URL, 'SprintBook-DockerHub-Credentials' ) {
+                sprintBookImage.push()
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  environment {
+    DOCKERHUB_URL = 'https://hub.sprintbook.com'
+    DOCKERHUB_IMAGE = 'hub.sprintbook.com/sprintbook'
+    IMAGE_TAG = env.GIT_COMMIT.take(8)
+  }
+}
