@@ -32,5 +32,4 @@ helm upgrade --install sprintbook-platform . \
 
 ## Conclusion
 
-You have now learned how to create, run, and manage Docker images and containers. This guide provides the basic commands, but you can explore more Docker features as needed.
-
+Topics covered are project intro, Docker file, Jenkins Pipeline to build, run tests and push image on successfull results. A sample helmchart that can be used to deploy this image in kubernetes enviroment.
