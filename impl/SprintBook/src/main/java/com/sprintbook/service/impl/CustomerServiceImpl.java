@@ -1,5 +1,6 @@
 package com.sprintbook.service.impl;
 
+import com.sprintbook.dto.CreateCustomer;
 import com.sprintbook.dto.Customer;
 import com.sprintbook.mappers.CustomerMapper;
 import com.sprintbook.model.CustomerModel;
@@ -25,10 +26,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public Customer Add(Customer customer) {
-        CustomerModel model = customerMapper.map(customer);
-        customerRepository.save(model);
-        return null;
+    public Customer Add(CreateCustomer customer) {
+        CustomerModel model = customerMapper.mapCreate(customer);
+        model.setId( null );
+        CustomerModel savedCustomer = customerRepository.save(model);
+        return this.customerMapper.map(savedCustomer);
     }
 
     @Override

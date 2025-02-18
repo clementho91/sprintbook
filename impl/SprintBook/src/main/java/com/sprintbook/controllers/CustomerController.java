@@ -1,5 +1,6 @@
 package com.sprintbook.controllers;
 
+import com.sprintbook.dto.CreateCustomer;
 import com.sprintbook.dto.Customer;
 import com.sprintbook.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,9 @@ public class CustomerController {
     CustomerService customerService;
 
     @PostMapping
-    public ResponseEntity<Customer> Add(Customer customer){
-
-        return null;
+    public ResponseEntity<Customer> Add(CreateCustomer customer){
+        Customer savedCustomer =  this.customerService.Add( customer );
+        return ResponseEntity.ok(savedCustomer);
     }
 
     @GetMapping

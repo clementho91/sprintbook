@@ -1,6 +1,8 @@
 package com.sprintbook.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
+import com.sprintbook.dto.CreateCustomer;
 import com.sprintbook.dto.Customer;
 import com.sprintbook.repository.CustomerRepository;
 import com.sprintbook.service.CustomerService;
@@ -24,6 +26,7 @@ import java.util.UUID;
 import static org.hamcrest.Matchers.greaterThan;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -37,13 +40,29 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class CustomerControllerTest {
 
     @Autowired
+    ObjectMapper objectMapper;
+
+    @Autowired
     private MockMvc mockMvc;
 
     @MockBean
     private CustomerService customerService;
 
     @Test
-    void add() {
+    void addTest() throws Exception {
+        UUID customerId = UUID.randomUUID();
+        Customer customer = Customer.builder().firstName("Clement").lastName("Ho").middleName(null).email("myworkemail@gmail.com").build();
+
+        when(customerService.Add( new CreateCustomer() )).thenReturn(customer);
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/customer")
+                        .contentType("application/json").content( objectMapper.writeValueAsString(customer) ))
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful())
+                .andExpect( jsonPath("$.firstName").value(customer.getFirstName()))
+                .andExpect( jsonPath("$.lastName").value(customer.getLastName()) )
+                .andExpect( jsonPath("$.email").value(customer.getEmail()) )
+                .andReturn();
     }
 
     @Test
