@@ -8,9 +8,9 @@ import java.util.UUID;
 public interface CustomerService {
 
     Customer Add(Customer customer);
-    Customer findById(UUID id);
-    List<Customer> get(  );
-    void delete(UUID id);
+    Customer FindById(UUID id);
+    List<Customer> GetAll(  );
+    void Delete(UUID id);
 
 
 }

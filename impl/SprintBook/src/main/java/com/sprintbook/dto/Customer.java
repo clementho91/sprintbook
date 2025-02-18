@@ -2,6 +2,7 @@ package com.sprintbook.dto;
 
 import lombok.*;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -17,4 +18,7 @@ public class Customer {
     String lastName;
     String email;
     String phoneNumber;
+
+    Date createdAt;
+    Date updatedAt;
 }

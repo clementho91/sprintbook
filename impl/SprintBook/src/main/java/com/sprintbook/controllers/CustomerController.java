@@ -1,6 +1,8 @@
 package com.sprintbook.controllers;
 
 import com.sprintbook.dto.Customer;
+import com.sprintbook.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +13,8 @@ import java.util.UUID;
 @RequestMapping("/customer")
 public class CustomerController {
 
+    @Autowired
+    CustomerService customerService;
 
     @PostMapping
     public ResponseEntity<Customer> Add(Customer customer){
@@ -20,8 +24,8 @@ public class CustomerController {
 
     @GetMapping
     public ResponseEntity<List<Customer>> Index( ){
-
-        return null;
+        List<Customer> customers = customerService.GetAll();
+        return ResponseEntity.ok( customers);
     }
 
 

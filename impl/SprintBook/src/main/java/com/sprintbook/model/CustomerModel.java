@@ -9,14 +9,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-@Entity
+@Entity(name = "customer")
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
-@ToString
-public class CustomerModel implements Serializable {
+public class CustomerModel{
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
