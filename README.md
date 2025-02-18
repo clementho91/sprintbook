@@ -4,6 +4,15 @@ Below command will create a docker image for you. Installation steps and any con
 ```sh
 docker -t sprintbook:dev -f docker.d/sprintbook.Dockerfile ./
 ```
+## Helm Chart for SprintBook
+
+"springbook-chart" is a sample chart that can be used to deploy SprintBook image on kubernetes enviroment.
+
+```sh
+helm upgrade --install sprintbook-platform . \
+--namespace sprintbook --create-namespace \
+--values values.yaml
+```
 
 
 ## Conclusion
