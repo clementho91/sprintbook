@@ -11,7 +11,7 @@ impl/SprintBook
 Below command will create a docker image for you. Installation steps and any configurations related to docker is beyond the scope of this documentation.
 
 ```sh
-docker -t sprintbook:dev -f docker.d/sprintbook.Dockerfile ./
+docker build -t sprintbook:dev -f docker.d/sprintbook.Dockerfile ./
 ```
 
 ## Jenkins Pipeline to Build Image
